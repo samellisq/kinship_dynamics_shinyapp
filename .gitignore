@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 Archive/
+www/
+rsconnect/
+code to update shinyapps io.R
