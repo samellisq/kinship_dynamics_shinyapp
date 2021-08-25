@@ -1,3 +1,4 @@
 # kinship_dynamics_shinyapp
 
-runGitHub( "kinship_dynamics_shinyapp", "samellisq")
+library(shiny)
+runGitHub( "kinship_dynamics_shinyapp", "samellisq", ref = "main")
