@@ -1,4 +1,4 @@
-#kinship_dynamics_shinyapp
+# kinship_dynamics_shinyapp
 
 To run shiny app: 
 
