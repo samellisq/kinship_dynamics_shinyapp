@@ -1,0 +1,45 @@
+---
+title: "Kinship Dynamics Simulator Read Me"
+author: "Sam Ellis"
+date: "04/06/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+This is a simplified version of the kinship dynamics agent based model presented in:
+
+REF
+
+The model predicts the change in local relatedness with age (the kinship dynamics) for males and females given 8 demographic inputs.
+
+To predict kinship dynamics, select demographic inputs in the panel on the left and press run model ('Kinship Dynamics' tab above must be selected for model to run). Simulated kinship dynamics are returned as a plot of local relatedness (mean relatedness to group mates) by age for males and females.
+
+See the manuscript and manuscript supplementary S# for a full description of input variables. Note that the *expected lifespan from adulthood* of both sexes must be greater than *age at maturity* because both are defined from birth.  
+
+This online version is intended only for demonstration and exploration. More formal analyses should rely on the full model code (see below) or contact the corresponding author.
+
+#### Juveniles
+The model includes several options for including juveniles in the model. By default juveniles (agents below the age of sexual maturity) are not included in the calculation of kinship dynamics, matching the results reported in the main text of the manuscript (i.e. Fig 2). Selecting *Include Juveniles* means that agents below the age of sexual maturity are included in the calculation of kinship dynamics but only the kinship dynamics of adults is returned (i.e. manuscript figure S#). Selecting *Return Juveniles* means that the kinship dynamics of juveniles is plotted in the output along with that of adults (as long as *Include Juveniles* is also selected). For both Include Juveniles and Return Juveniles to work *N Juveniles in Group* must be greater than 0. Note, *N Juveniles in Group* is ignored if *Include Juveniles* is not selected and can be left as 0. 
+
+
+## Differences from full model
+
+For computational reasons this web app uses a simplified version of the full agent-based model reported in the manuscript.
+
+The basis of the code is the same but there are a number of key differences:
+
+* **Relatedness calculation.** Here relatedness is calculated on the basis of the full pedigree as implemented through kinship2. This contrasts with the calculation in the manuscript where we limit pedigree depth and adjust for unknown pairwise relatednesses (see manuscript for details). Local relatedness is calculated as the simple mean pairwise relatedness of an agent to all other agents in the group.
+
+* **Lifespan and group size limits.** In this online version  *expected lifespan* is limited to 15 for both sexes and *adult group size* is limited to 20 and *juvenile group size* is also limited to 20. Even given these limitations the model can produce objects too large for platform to allocate. Decreasing *model n* may help. Decreasing *group sizes* will usually change y axis scale rather than the patterns of kinship dynamics.
+
+* **Fitted relationship.** The relationship plotted is a simple cubic spline implemented by mgcv via ggplot2. For each sex the relationship is given by *y ~ s(x) + $\varepsilon$*. There is no adjustment for repeated 'observation' of the same agents. 
+
+### Further information
+
+Code to run this app locally can be found at LINK, and code for the full model at LINK.
+
+This application was created using [rshiny](https://shiny.rstudio.com/), and also utilises the [tidyverse](https://www.tidyverse.org/), [mgcv](https://cran.r-project.org/web/packages/mgcv/index.html), [kinship2](https://cran.r-project.org/web/packages/kinship2/index.html) and [viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) packages.
